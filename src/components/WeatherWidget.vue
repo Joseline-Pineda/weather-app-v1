@@ -16,8 +16,8 @@
       </v-row>
     </v-card-text>
     <v-card-actions>
-      <v-list-item class="font-weight-bold" text> 16°C </v-list-item>
-      <v-list-item text> 11°C </v-list-item>
+      <v-list-item class="font-weight-bold h6 ml-2" text> 16°C </v-list-item>
+      <v-list-item class="h6" text> 11°C </v-list-item>
     </v-card-actions>
   </v-card>
 </template>
