@@ -2,7 +2,7 @@
   <v-container class="fill-height py-0" fluid
     ><v-row class="fill-height"
       ><v-col class="primary" md="3"><v-row class="sidebar"></v-row></v-col
-      ><v-col class="secondary"><WeatherWidget /></v-col></v-row
+      ><v-col class="secondary"><WeatherWidget :time="tiempo" /></v-col></v-row
   ></v-container>
 </template>
 
@@ -12,6 +12,17 @@ export default {
   name: "Home",
   components: {
     WeatherWidget,
+  },
+  data() {
+    return {
+      tiempo: {
+        titulo: "Mon, 8 Jun",
+        img: "http://localhost:8080/img/LightCloud.0bc593cd.png",
+        max: "16°C",
+        min: "11°C",
+        alt: "Texto alternatvi",
+      },
+    };
   },
 };
 </script>
