@@ -2,14 +2,24 @@
   <v-container class="fill-height py-0" fluid
     ><v-row class="fill-height"
       ><v-col class="primary" md="3"><v-row class="sidebar"></v-row></v-col
-      ><v-col class="secondary"><WeatherWidget :time="tiempo" /></v-col></v-row
-  ></v-container>
+      ><v-col class="secondary"><WeatherWidget :time="tiempo" /></v-col
+    ></v-row>
+  </v-container>
 </template>
 
 <script>
 import WeatherWidget from "@/components/WeatherWidget.vue";
 export default {
   name: "Home",
+  created() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position.coords.latitude, position.coords.longitude);
+      });
+    } else {
+      /* geolocation IS NOT available */
+    }
+  },
   components: {
     WeatherWidget,
   },
@@ -17,10 +27,10 @@ export default {
     return {
       tiempo: {
         titulo: "Mon, 8 Jun",
-        img: "http://localhost:8080/img/LightCloud.0bc593cd.png",
+        img: require("../assets/img/LightCloud.png"),
         max: "16°C",
         min: "11°C",
-        alt: "Texto alternatvi",
+        alt: "Texto alternatvo",
       },
     };
   },
