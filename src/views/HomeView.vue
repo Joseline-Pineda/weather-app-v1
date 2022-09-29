@@ -9,13 +9,24 @@
 
 <script>
 import WeatherWidget from "@/components/WeatherWidget.vue";
+import axios from "axios";
 export default {
   name: "Home",
   created() {
     if ("geolocation" in navigator) {
+      let lat = 0;
+      let lon = 0;
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position.coords.latitude, position.coords.longitude);
+        lat = position.coords.latitude;
+        lon = position.coords.longitude;
       });
+      axios
+        .get(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=6ac7cc5ef159eb0ca2eb7aff5a1d2ee7&units=metric`
+        )
+        .then((result) => {
+          console.log(result.data);
+        });
     } else {
       /* geolocation IS NOT available */
     }
