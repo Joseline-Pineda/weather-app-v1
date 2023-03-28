@@ -2,7 +2,9 @@
   <v-container class="fill-height py-0" fluid
     ><v-row class="fill-height"
       ><v-col class="primary" md="3"
-        ><v-row class="sidebar"></v-row><MainImage :img="image" /></v-col
+        ><v-row class="sidebar"></v-row
+        ><v-container style="margin-top: -80%"
+          ><MainImage :img="image" /></v-container></v-col
       ><v-col class="secondary"><WeatherWidget :time="tiempo" /></v-col
     ></v-row>
   </v-container>
@@ -49,14 +51,14 @@ export default {
       },
       iconList: {
         "01n": require("../assets/img/Clear.png"),
-        "02n": "../assets/img/LightCloud.png",
-        "03n": "../assets/img/HeavyCloud.png",
+        "02n": require("../assets/img/LightCloud.png"),
+        "03n": require("../assets/img/HeavyCloud.png"),
         "04n": require("../assets/img/LightCloud.png"),
-        "09n": "../assets/img/LightRain.png",
-        "10n": "../assets/img/Shower.png",
-        "11n": "../assets/img/Thunderstorm.png",
-        "13n": "../assets/img/Snow.png",
-        "50n": "../assets/img/LightCloud.png",
+        "09n": require("../assets/img/LightRain.png"),
+        "10n": require("../assets/img/Shower.png"),
+        "11n": require("../assets/img/Thunderstorm.png"),
+        "13n": require("../assets/img/Snow.png"),
+        "50n": require("../assets/img/LightCloud.png"),
       },
       image: "",
     };
@@ -71,4 +73,10 @@ export default {
   filter: grayscale(200%) opacity(0.1) drop-shadow(0 0 0 black);
   height: 50%;
 }
+/* .sidebar > v-container {
+  background-image: none;
+  background-size: none;
+  background-position: none;
+  filter: none !important;
+} */
 </style>
