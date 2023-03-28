@@ -1,7 +1,8 @@
 <template>
   <v-container class="fill-height py-0" fluid
     ><v-row class="fill-height"
-      ><v-col class="primary" md="3"><v-row class="sidebar"></v-row></v-col
+      ><v-col class="primary" md="3"
+        ><v-row class="sidebar"></v-row><MainImage :img="image" /></v-col
       ><v-col class="secondary"><WeatherWidget :time="tiempo" /></v-col
     ></v-row>
   </v-container>
@@ -9,6 +10,7 @@
 
 <script>
 import WeatherWidget from "@/components/WeatherWidget.vue";
+import MainImage from "@/components/MainImage.vue";
 import axios from "axios";
 export default {
   name: "Home",
@@ -25,7 +27,8 @@ export default {
           `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=6ac7cc5ef159eb0ca2eb7aff5a1d2ee7&units=metric`
         )
         .then((result) => {
-          console.log(result.data);
+          let info = result.data;
+          this.image = this.iconList[info.weather[0].icon];
         });
     } else {
       /* geolocation IS NOT available */
@@ -33,6 +36,7 @@ export default {
   },
   components: {
     WeatherWidget,
+    MainImage,
   },
   data() {
     return {
@@ -43,6 +47,18 @@ export default {
         min: "11°C",
         alt: "Texto alternatvo",
       },
+      iconList: {
+        "01n": require("../assets/img/Clear.png"),
+        "02n": "../assets/img/LightCloud.png",
+        "03n": "../assets/img/HeavyCloud.png",
+        "04n": require("../assets/img/LightCloud.png"),
+        "09n": "../assets/img/LightRain.png",
+        "10n": "../assets/img/Shower.png",
+        "11n": "../assets/img/Thunderstorm.png",
+        "13n": "../assets/img/Snow.png",
+        "50n": "../assets/img/LightCloud.png",
+      },
+      image: "",
     };
   },
 };
