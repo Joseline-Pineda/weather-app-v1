@@ -1,5 +1,10 @@
 <template>
-  <v-card class="mx-auto primary" max-width="344" elevation="0">
+  <v-card
+    style="user-select: none"
+    class="mx-auto primary"
+    max-width="344"
+    elevation="0"
+  >
     <v-card-text class="text-center">
       <p class="num">15 <span class="unit">°C</span></p>
       <p class="description">Shower</p>
@@ -8,7 +13,15 @@
           Today <span style="margin: 0 15px; font-weight: bold">.</span> Fri 5
           Jun
         </p>
-        <p>Santa Ana</p>
+
+        <p>
+          <span
+            ><v-icon color="#88869D" size="12"
+              >fa-solid fa-location-dot</v-icon
+            ></span
+          >
+          Santa Ana
+        </p>
       </div>
     </v-card-text>
   </v-card>

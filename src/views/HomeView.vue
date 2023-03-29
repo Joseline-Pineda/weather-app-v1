@@ -4,7 +4,7 @@
       ><v-col class="primary" md="3"
         ><v-row class="sidebar"></v-row
         ><v-container class="main-icon"><MainImage :img="image" /></v-container
-        ><v-row class="mt-n10"><DailyCard /></v-row></v-col
+        ><v-row class="mt-n15"><DailyCard /></v-row></v-col
       ><v-col class="secondary"><WeatherWidget :time="tiempo" /></v-col
     ></v-row>
   </v-container>
