@@ -79,4 +79,10 @@ export default {
 .main-icon {
   margin-top: -25rem;
 }
+
+@media screen and (width: 1366px) {
+  .main-icon {
+    margin-top: -15rem; /* para pantallas de menos de 768px de ancho */
+  }
+}
 </style>
