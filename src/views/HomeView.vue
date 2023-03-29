@@ -3,13 +3,12 @@
     ><v-row class="fill-height"
       ><v-col class="primary" md="3"
         ><v-row class="sidebar"></v-row
-        ><v-container style="margin-top: -80%"
+        ><v-container class="main-icon"
           ><MainImage :img="image" /></v-container></v-col
       ><v-col class="secondary"><WeatherWidget :time="tiempo" /></v-col
     ></v-row>
   </v-container>
 </template>
-
 <script>
 import WeatherWidget from "@/components/WeatherWidget.vue";
 import MainImage from "@/components/MainImage.vue";
@@ -30,7 +29,10 @@ export default {
         )
         .then((result) => {
           let info = result.data;
-          this.image = this.iconList[info.weather[0].icon];
+          console.log(info);
+          let id = info.weather[0].icon;
+          id = id.slice(0, id.length - 1);
+          this.image = this.iconList[id];
         });
     } else {
       /* geolocation IS NOT available */
@@ -50,15 +52,15 @@ export default {
         alt: "Texto alternatvo",
       },
       iconList: {
-        "01n": require("../assets/img/Clear.png"),
-        "02n": require("../assets/img/LightCloud.png"),
-        "03n": require("../assets/img/HeavyCloud.png"),
-        "04n": require("../assets/img/LightCloud.png"),
-        "09n": require("../assets/img/LightRain.png"),
-        "10n": require("../assets/img/Shower.png"),
-        "11n": require("../assets/img/Thunderstorm.png"),
-        "13n": require("../assets/img/Snow.png"),
-        "50n": require("../assets/img/LightCloud.png"),
+        "01": require("../assets/img/Clear.png"),
+        "02": require("../assets/img/LightCloud.png"),
+        "03": require("../assets/img/HeavyCloud.png"),
+        "04": require("../assets/img/LightCloud.png"),
+        "09": require("../assets/img/LightRain.png"),
+        10: require("../assets/img/Shower.png"),
+        11: require("../assets/img/Thunderstorm.png"),
+        13: require("../assets/img/Snow.png"),
+        50: require("../assets/img/LightCloud.png"),
       },
       image: "",
     };
@@ -73,10 +75,8 @@ export default {
   filter: grayscale(200%) opacity(0.1) drop-shadow(0 0 0 black);
   height: 50%;
 }
-/* .sidebar > v-container {
-  background-image: none;
-  background-size: none;
-  background-position: none;
-  filter: none !important;
-} */
+
+.main-icon {
+  margin-top: -25rem;
+}
 </style>
