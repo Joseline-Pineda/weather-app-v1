@@ -4,7 +4,7 @@
       ><v-col class="primary" md="3"
         ><v-row class="sidebar"></v-row
         ><v-container class="main-icon"><MainImage :img="image" /></v-container
-        ><v-row class="mt-n15"><DailyCard /></v-row></v-col
+        ><v-row class="dailycard"><DailyCard /></v-row></v-col
       ><v-col class="secondary"><WeatherWidget :time="tiempo" /></v-col
     ></v-row>
   </v-container>
@@ -85,6 +85,15 @@ export default {
 @media screen and (width: 1366px) {
   .main-icon {
     margin-top: -15rem; /* para pantallas de menos de 768px de ancho */
+  }
+  .dailycard {
+    margin-top: -15rem;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .dailycard {
+    margin-top: 3rem;
   }
 }
 </style>

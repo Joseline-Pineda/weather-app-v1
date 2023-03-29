@@ -14,7 +14,7 @@
           Jun
         </p>
 
-        <p>
+        <p class="location">
           <span
             ><v-icon color="#88869D" size="12"
               >fa-solid fa-location-dot</v-icon
@@ -50,5 +50,30 @@ export default {};
   font-size: 1.7;
   font-weight: 100;
   margin-top: 3rem;
+}
+
+@media screen and (min-width: 1400px) {
+  .num {
+    font-size: 8rem;
+    font-weight: 500;
+  }
+  .unit {
+    font-size: 3rem;
+    font-weight: 500;
+    margin-left: -25px;
+  }
+  .description {
+    margin-top: 7rem;
+    font-size: 2.75rem;
+    font-weight: 500;
+  }
+  .information {
+    font-size: 1.7rem;
+    font-weight: 100;
+    margin-top: 7rem;
+  }
+  .location {
+    margin-top: 2.5rem;
+  }
 }
 </style>
