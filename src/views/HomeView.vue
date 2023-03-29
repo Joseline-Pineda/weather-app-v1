@@ -3,8 +3,8 @@
     ><v-row class="fill-height"
       ><v-col class="primary" md="3"
         ><v-row class="sidebar"></v-row
-        ><v-container class="main-icon"
-          ><MainImage :img="image" /></v-container></v-col
+        ><v-container class="main-icon"><MainImage :img="image" /></v-container
+        ><DailyCard /></v-col
       ><v-col class="secondary"><WeatherWidget :time="tiempo" /></v-col
     ></v-row>
   </v-container>
@@ -12,6 +12,7 @@
 <script>
 import WeatherWidget from "@/components/WeatherWidget.vue";
 import MainImage from "@/components/MainImage.vue";
+import DailyCard from "@/components/DailyCard.vue";
 import axios from "axios";
 export default {
   name: "Home",
@@ -41,6 +42,7 @@ export default {
   components: {
     WeatherWidget,
     MainImage,
+    DailyCard,
   },
   data() {
     return {
