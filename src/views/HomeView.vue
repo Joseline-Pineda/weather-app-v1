@@ -14,27 +14,44 @@ import WeatherWidget from "@/components/WeatherWidget.vue";
 import MainImage from "@/components/MainImage.vue";
 import DailyCard from "@/components/DailyCard.vue";
 import axios from "axios";
+import moment from "moment";
 export default {
   name: "Home",
   created() {
+    const date = moment();
+    const fechaFormatter = date.format("dddd D [de] MMMM");
+    console.log(fechaFormatter);
+    let lat = 0;
+    let lon = 0;
     if ("geolocation" in navigator) {
-      let lat = 0;
-      let lon = 0;
       navigator.geolocation.getCurrentPosition((position) => {
         lat = position.coords.latitude;
         lon = position.coords.longitude;
+        console.log(lat);
+        console.log(lon);
+        axios
+          .get(
+            "https://api.openweathermap.org/data/2.5/weather?lat=" +
+              lat +
+              "&lon=" +
+              lon +
+              "&appid=6ac7cc5ef159eb0ca2eb7aff5a1d2ee7&units=metric"
+          )
+          .then((result) => {
+            let info = result.data;
+            console.log(info);
+            let id = info.weather[0].icon;
+            id = id.slice(0, id.length - 1);
+            this.image = this.iconList[id];
+
+            this.today = {
+              temp: Math.trunc(info.main.feels_like),
+              description: info.weather[0].main,
+              date: fechaFormatter,
+              location: "Santa Ana",
+            };
+          });
       });
-      axios
-        .get(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=6ac7cc5ef159eb0ca2eb7aff5a1d2ee7&units=metric`
-        )
-        .then((result) => {
-          let info = result.data;
-          console.log(info);
-          let id = info.weather[0].icon;
-          id = id.slice(0, id.length - 1);
-          this.image = this.iconList[id];
-        });
     } else {
       /* geolocation IS NOT available */
     }
