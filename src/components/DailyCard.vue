@@ -6,12 +6,13 @@
     elevation="0"
   >
     <v-card-text class="text-center">
-      <p class="num">15 <span class="unit">°C</span></p>
-      <p class="description">Shower</p>
+      <p class="num">{{ info.temp }} <span class="unit">°C</span></p>
+      <p class="description">{{ info.description }}</p>
       <div class="information">
         <p>
-          Today <span style="margin: 0 15px; font-weight: bold">.</span> Fri 5
-          Jun
+          Today
+          <span style="margin: 0 15px; font-weight: bold">.</span>
+          {{ info.date }}
         </p>
 
         <p class="location">
@@ -20,7 +21,7 @@
               >fa-solid fa-location-dot</v-icon
             ></span
           >
-          Santa Ana
+          {{ info.location }}
         </p>
       </div>
     </v-card-text>
@@ -28,7 +29,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    info: {
+      type: Object,
+    },
+  },
+};
 </script>
 
 <style scoped>

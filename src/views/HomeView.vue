@@ -4,7 +4,7 @@
       ><v-col class="primary" md="3"
         ><v-row class="sidebar"></v-row
         ><v-container class="main-icon"><MainImage :img="image" /></v-container
-        ><v-row class="dailycard"><DailyCard /></v-row></v-col
+        ><v-row class="dailycard"><DailyCard :info="today" /></v-row></v-col
       ><v-col class="secondary"><WeatherWidget :time="tiempo" /></v-col
     ></v-row>
   </v-container>
@@ -53,6 +53,12 @@ export default {
         min: "11°C",
         alt: "Texto alternatvo",
       },
+      today: {
+        temp: 18,
+        description: "shower",
+        date: "Fri 30 Mar",
+        location: "Santa Ana",
+      },
       iconList: {
         "01": require("../assets/img/Clear.png"),
         "02": require("../assets/img/LightCloud.png"),
@@ -82,12 +88,12 @@ export default {
   margin-top: -25rem;
 }
 
-@media screen and (width: 1366px) {
+@media screen and (max-width: 1366px) {
   .main-icon {
     margin-top: -15rem; /* para pantallas de menos de 768px de ancho */
   }
   .dailycard {
-    margin-top: -15rem;
+    margin-top: -3.5rem;
   }
 }
 
