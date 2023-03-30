@@ -19,7 +19,7 @@ export default {
   name: "Home",
   created() {
     const date = moment();
-    const fechaFormatter = date.format("dddd D [de] MMMM");
+    const fechaFormatter = date.format("dddd D MMMM");
     console.log(fechaFormatter);
     let lat = 0;
     let lon = 0;
