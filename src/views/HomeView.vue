@@ -5,7 +5,13 @@
         ><v-row class="sidebar"></v-row
         ><v-container class="main-icon"><MainImage :img="image" /></v-container
         ><v-row class="dailycard"><DailyCard :info="today" /></v-row></v-col
-      ><v-col class="secondary"><WeatherWidget :time="tiempo" /></v-col
+      ><v-col class="secondary"
+        ><v-row>
+          <v-col md="1"></v-col>
+          <v-col v-for="day in days" :key="day.id" md="2"
+            ><WeatherWidget :time="tiempo"
+          /></v-col>
+        </v-row> </v-col
     ></v-row>
   </v-container>
 </template>
@@ -63,6 +69,25 @@ export default {
                 };
               });
           });
+        console.log(
+          "api.openweathermap.org/data/2.5/forecast/daily?lat=" +
+            lat +
+            "&lon=" +
+            lon +
+            "&cnt=7&appid=6ac7cc5ef159eb0ca2eb7aff5a1d2ee7"
+        );
+        axios
+          .get(
+            "https://api.openweathermap.org/data/2.5/forecast?lat=" +
+              lat +
+              "&lon=" +
+              lon +
+              "&appid=6ac7cc5ef159eb0ca2eb7aff5a1d2ee7&units=metric"
+          )
+          .then((result) => {
+            this.days = result.data;
+            console.log(this.days);
+          });
       });
     } else {
       /* geolocation IS NOT available */
@@ -88,6 +113,7 @@ export default {
         date: "Fri 30 Mar",
         location: "Santa Ana",
       },
+      days: null,
       iconList: {
         "01": require("../assets/img/Clear.png"),
         "02": require("../assets/img/LightCloud.png"),
