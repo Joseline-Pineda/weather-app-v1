@@ -27,29 +27,41 @@ export default {
       navigator.geolocation.getCurrentPosition((position) => {
         lat = position.coords.latitude;
         lon = position.coords.longitude;
+        var ubicacion;
         console.log(lat);
         console.log(lon);
         axios
           .get(
-            "https://api.openweathermap.org/data/2.5/weather?lat=" +
+            "https://nominatim.openstreetmap.org/reverse?format=json&lat=" +
               lat +
               "&lon=" +
-              lon +
-              "&appid=6ac7cc5ef159eb0ca2eb7aff5a1d2ee7&units=metric"
+              lon
           )
           .then((result) => {
-            let info = result.data;
-            console.log(info);
-            let id = info.weather[0].icon;
-            id = id.slice(0, id.length - 1);
-            this.image = this.iconList[id];
+            ubicacion = result.data;
+            console.log(ubicacion);
+            axios
+              .get(
+                "https://api.openweathermap.org/data/2.5/weather?lat=" +
+                  lat +
+                  "&lon=" +
+                  lon +
+                  "&appid=6ac7cc5ef159eb0ca2eb7aff5a1d2ee7&units=metric"
+              )
+              .then((result) => {
+                let info = result.data;
+                console.log(info);
+                let id = info.weather[0].icon;
+                id = id.slice(0, id.length - 1);
+                this.image = this.iconList[id];
 
-            this.today = {
-              temp: Math.trunc(info.main.feels_like),
-              description: info.weather[0].main,
-              date: fechaFormatter,
-              location: "Santa Ana",
-            };
+                this.today = {
+                  temp: Math.trunc(info.main.feels_like),
+                  description: info.weather[0].main,
+                  date: fechaFormatter,
+                  location: ubicacion.address.city,
+                };
+              });
           });
       });
     } else {
