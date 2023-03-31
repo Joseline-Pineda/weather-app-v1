@@ -6,10 +6,10 @@
         ><v-container class="main-icon"><MainImage :img="image" /></v-container
         ><v-row class="dailycard"><DailyCard :info="today" /></v-row></v-col
       ><v-col class="secondary"
-        ><v-row>
+        ><v-row class="mt-10">
           <v-col md="1"></v-col>
           <v-col v-for="day in days" :key="day.id" md="2"
-            ><WeatherWidget :time="tiempo"
+            ><WeatherWidget :time="day"
           /></v-col>
         </v-row> </v-col
     ></v-row>
@@ -25,6 +25,7 @@ export default {
   name: "Home",
   created() {
     const date = moment();
+    console.log(date);
     const fechaFormatter = date.format("ddd D MMMM");
     console.log(fechaFormatter);
     let lat = 0;
@@ -34,8 +35,7 @@ export default {
         lat = position.coords.latitude;
         lon = position.coords.longitude;
         var ubicacion;
-        console.log(lat);
-        console.log(lon);
+
         axios
           .get(
             "https://nominatim.openstreetmap.org/reverse?format=json&lat=" +
@@ -45,7 +45,7 @@ export default {
           )
           .then((result) => {
             ubicacion = result.data;
-            console.log(ubicacion);
+
             axios
               .get(
                 "https://api.openweathermap.org/data/2.5/weather?lat=" +
@@ -56,7 +56,7 @@ export default {
               )
               .then((result) => {
                 let info = result.data;
-                console.log(info);
+
                 let id = info.weather[0].icon;
                 id = id.slice(0, id.length - 1);
                 this.image = this.iconList[id];
@@ -69,13 +69,6 @@ export default {
                 };
               });
           });
-        console.log(
-          "api.openweathermap.org/data/2.5/forecast/daily?lat=" +
-            lat +
-            "&lon=" +
-            lon +
-            "&cnt=7&appid=6ac7cc5ef159eb0ca2eb7aff5a1d2ee7"
-        );
         axios
           .get(
             "https://api.openweathermap.org/data/2.5/forecast?lat=" +
@@ -86,7 +79,38 @@ export default {
           )
           .then((result) => {
             this.days = result.data;
-            console.log(this.days);
+            let dayList = result.data.list;
+            dayList = dayList.map((item) => ({
+              min: item.main.temp_min,
+              max: item.main.temp_max,
+              img: this.iconList[
+                item.weather[0].icon.slice(0, item.weather[0].icon.length - 1)
+              ],
+              titulo: item.dt_txt.slice(0, 10),
+            }));
+
+            let fechas = dayList.map((fecha) => fecha.titulo);
+
+            fechas = [...new Set(fechas)];
+            console.log(dayList);
+            console.log(fechas);
+            let climas = [];
+            for (const fecha of fechas) {
+              let filter = dayList.filter((item) => item.titulo == fecha);
+              let climaPromedio = filter.reduce((a, b) => ({
+                titulo: a.titulo,
+                min: a.min + b.min,
+                max: a.max + b.max,
+                img: a.img,
+              }));
+              climaPromedio.titulo = date.add(1, "day").format("ddd D MMMM");
+              climaPromedio.min = Math.trunc(climaPromedio.min / filter.length);
+              climaPromedio.max = Math.trunc(climaPromedio.max / filter.length);
+
+              climas.push(climaPromedio);
+            }
+            console.log(climas);
+            this.days = climas;
           });
       });
     } else {
@@ -113,7 +137,7 @@ export default {
         date: "Fri 30 Mar",
         location: "Santa Ana",
       },
-      days: null,
+      days: [],
       iconList: {
         "01": require("../assets/img/Clear.png"),
         "02": require("../assets/img/LightCloud.png"),

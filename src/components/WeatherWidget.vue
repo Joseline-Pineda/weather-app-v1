@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto primary" max-width="160">
+  <v-card class="mx-auto primary" min-height="235" max-width="160">
     <v-list-item two-line>
       <v-list-item-content>
         <v-list-item-title class="text-h6 text-center">
@@ -8,7 +8,7 @@
       </v-list-item-content>
     </v-list-item>
 
-    <v-card-text>
+    <v-card-text style="height: 100px">
       <v-row>
         <v-col cols="12" offset-md="2" md="8">
           <v-img :src="time.img" :alt="time.alt"></v-img>
