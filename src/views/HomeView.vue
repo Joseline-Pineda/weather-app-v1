@@ -111,6 +111,7 @@ export default {
             }
             console.log(climas);
             this.days = climas;
+            if (this.days.length > 5) this.days.pop();
           });
       });
     } else {
