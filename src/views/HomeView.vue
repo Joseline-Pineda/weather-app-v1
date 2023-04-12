@@ -9,9 +9,9 @@
         ><v-row class="mt-10">
           <v-col md="1"></v-col>
           <v-col v-for="day in days" :key="day.id" md="2"
-            ><WeatherWidget :time="day"
-          /></v-col>
-        </v-row> </v-col
+            ><WeatherWidget :time="day" />
+          </v-col> </v-row
+        ><TodayHightlights /> </v-col
     ></v-row>
   </v-container>
 </template>
@@ -19,6 +19,7 @@
 import WeatherWidget from "@/components/WeatherWidget.vue";
 import MainImage from "@/components/MainImage.vue";
 import DailyCard from "@/components/DailyCard.vue";
+import TodayHightlights from "@/components/TodayHightlights.vue";
 import axios from "axios";
 import moment from "moment";
 export default {
@@ -86,6 +87,7 @@ export default {
               img: this.iconList[
                 item.weather[0].icon.slice(0, item.weather[0].icon.length - 1)
               ],
+              //todo cambiar nombre de titulo por fecha
               titulo: item.dt_txt.slice(0, 10),
             }));
 
@@ -122,6 +124,10 @@ export default {
     WeatherWidget,
     MainImage,
     DailyCard,
+    TodayHightlights,
+  },
+  props: {
+    info: Object,
   },
   data() {
     return {
@@ -166,6 +172,9 @@ export default {
 
 .main-icon {
   margin-top: -25rem;
+}
+.bg-slate-800 {
+  background-color: #1f2937;
 }
 
 @media screen and (max-width: 1366px) {
