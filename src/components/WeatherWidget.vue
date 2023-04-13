@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto primary" min-height="235" max-width="160">
+  <v-card class="primary" min-height="235">
     <v-list-item two-line>
       <v-list-item-content>
         <v-list-item-title class="text-h6 text-center">

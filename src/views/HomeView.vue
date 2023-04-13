@@ -7,13 +7,24 @@
         <v-row class="dailycard"><DailyCard :info="today" /> </v-row>
       </v-col>
       <v-col class="secondary">
-        <v-row class="mt-10">
-          <v-col md="1"></v-col>
-          <v-col v-for="day in days" :key="day.id" md="2">
-            <WeatherWidget :time="day" />
+        <v-row>
+          <v-col offset-md="1" md="12">
+            <v-row class="mt-10">
+              <v-col v-for="day in days" :key="day.id" md="2">
+                <WeatherWidget :time="day" />
+              </v-col>
+            </v-row>
+            <v-row> <h2 class="ml-3">Today's Hightlights</h2></v-row>
+            <v-row>
+              <v-col md="5"> <TodayHightlights /></v-col>
+              <v-col md="5"><TodayHightlights /></v-col>
+            </v-row>
+            <v-row>
+              <v-col md="5"><TodayHightlights /></v-col>
+              <v-col md="5"><TodayHightlights /></v-col>
+            </v-row>
           </v-col>
         </v-row>
-        <TodayHightlights />
       </v-col>
     </v-row>
   </v-container>
