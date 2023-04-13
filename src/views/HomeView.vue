@@ -1,18 +1,21 @@
 <template>
-  <v-container class="fill-height py-0" fluid
-    ><v-row class="fill-height"
-      ><v-col class="primary" md="3"
-        ><v-row class="sidebar"></v-row
-        ><v-container class="main-icon"><MainImage :img="image" /></v-container
-        ><v-row class="dailycard"><DailyCard :info="today" /></v-row></v-col
-      ><v-col class="secondary"
-        ><v-row class="mt-10">
+  <v-container class="fill-height py-0" fluid>
+    <v-row class="fill-height">
+      <v-col class="primary" md="3">
+        <v-row class="sidebar"> </v-row>
+        <v-container class="main-icon"><MainImage :img="image" /> </v-container>
+        <v-row class="dailycard"><DailyCard :info="today" /> </v-row>
+      </v-col>
+      <v-col class="secondary">
+        <v-row class="mt-10">
           <v-col md="1"></v-col>
-          <v-col v-for="day in days" :key="day.id" md="2"
-            ><WeatherWidget :time="day" />
-          </v-col> </v-row
-        ><TodayHightlights /> </v-col
-    ></v-row>
+          <v-col v-for="day in days" :key="day.id" md="2">
+            <WeatherWidget :time="day" />
+          </v-col>
+        </v-row>
+        <TodayHightlights />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 <script>
