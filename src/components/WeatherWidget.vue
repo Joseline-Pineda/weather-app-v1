@@ -16,10 +16,18 @@
       </v-row>
     </v-card-text>
     <v-card-actions>
-      <v-list-item class="font-weight-bold h6 ml-2" text>
-        {{ time.max }}
-      </v-list-item>
-      <v-list-item class="h6" text> {{ time.min }} </v-list-item>
+      <v-row d-flex>
+        <v-col class="h6 d-flex justify-start" text offset="md-2" md="4">
+          {{ time.max }}°C
+        </v-col>
+        <v-col
+          class="h6 d-flex justify-end grey--text font-weight-light"
+          md="4"
+          text
+        >
+          {{ time.min }}°C
+        </v-col>
+      </v-row>
     </v-card-actions>
   </v-card>
 </template>

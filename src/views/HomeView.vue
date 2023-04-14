@@ -14,7 +14,9 @@
                 <WeatherWidget :time="day" />
               </v-col>
             </v-row>
-            <v-row> <h2 class="ml-3">Today's Hightlights</h2></v-row>
+            <v-row>
+              <v-col><h2>Today's Hightlights</h2></v-col>
+            </v-row>
             <v-row>
               <v-col md="5"> <TodayHightlights /></v-col>
               <v-col md="5"><TodayHightlights /></v-col>
