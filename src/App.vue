@@ -18,6 +18,6 @@ export default {
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;500&display=swap");
 #app {
-  font-family: "Raleway", sans-serif;
+  font-family: "Raleway", sans-serif !important;
 }
 </style>

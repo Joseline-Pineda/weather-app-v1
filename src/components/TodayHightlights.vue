@@ -1,39 +1,60 @@
 <template>
-  <v-card class="mx-auto primary">
-    <v-card-title class="text-center">Humidity</v-card-title>
-    <v-card-text class="text-center">
-      <div class="d-flex align-center justify-center">
-        <span class="text-h2 md:text-h1 font-weight-bold">
+  <v-card class="mx-auto primary" height="250">
+    <v-card-title
+      ><v-card-text class="text-center text-h4">{{ info.title }}</v-card-text>
+    </v-card-title>
+
+    <v-card-text class="text-center mt-n4">
+      <div class="d-flex align-center justify-center mb-5">
+        <span class="md:text-h1 font-weight-bold text-h2">
           <!-- {{ info.main.humidity }} -->
-          45
+          {{ info.body }}
         </span>
-        <span class="ml-1">%</span>
+        <span class="ml-1 text-h4">{{ info.unit }}</span>
       </div>
-      <div class="rounded-full h-2.5 bg-grey lighten-3">
-        <div
-          class="flex justify-between absolute top-0 w-full text-caption grey--text"
-        >
-          <div class="d-flex justify-space-between">
-            <span class="start">0</span>
-            <span class="center">50</span>
-            <span class="end">100</span>
-          </div>
-        </div>
+      <div>
+        <v-row>
+          <v-col md="8" offset-md="2">
+            <div class="rounded-full h-2.5 bg-grey lighten-3">
+              <div
+                class="flex justify-between absolute w-full text-caption grey--text"
+              >
+                <div class="d-flex justify-space-between">
+                  <span class="start">0</span>
+                  <span class="center">50</span>
+                  <span class="end">100</span>
+                </div>
+              </div>
+            </div>
+            <v-progress-linear
+              class="mt-1"
+              :value="50"
+              height="10"
+              rounded
+              color="#FFEC65"
+            >
+            </v-progress-linear>
+          </v-col>
+          <v-text class="d-flex justify-end mt-7 ml-0">%</v-text>
+        </v-row>
       </div>
-      <v-progress-linear
-        class="mt-5"
-        :value="50"
-        height="5"
-        rounded
-        color="yellow darken-2"
-      >
-      </v-progress-linear>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    info: {
+      type: Object,
+      default: null,
+    },
+  },
+};
 </script>
 
-<style scoped></style>
+<style scoped>
+.text-h2 {
+  font-family: "Raleway", sans-serif !important;
+}
+</style>

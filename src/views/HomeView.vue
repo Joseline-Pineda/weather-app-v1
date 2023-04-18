@@ -18,8 +18,8 @@
               <v-col><h2>Today's Hightlights</h2></v-col>
             </v-row>
             <v-row>
-              <v-col md="5"> <TodayHightlights /></v-col>
-              <v-col md="5"><TodayHightlights /></v-col>
+              <v-col md="5"> <TodayHightlights :info="wind" /></v-col>
+              <v-col md="5"><TodayHightlights :info="humedad" /></v-col>
             </v-row>
             <v-row>
               <v-col md="5"><TodayHightlights /></v-col>
@@ -73,7 +73,8 @@ export default {
               )
               .then((result) => {
                 let info = result.data;
-
+                console.log("ff");
+                console.log(info);
                 let id = info.weather[0].icon;
                 id = id.slice(0, id.length - 1);
                 this.image = this.iconList[id];
@@ -83,6 +84,18 @@ export default {
                   description: info.weather[0].main,
                   date: fechaFormatter,
                   location: ubicacion.address.city,
+                };
+
+                this.wind = {
+                  title: "Wind status",
+                  body: info.wind.speed,
+                  unit: "m/s",
+                };
+
+                this.humedad = {
+                  title: "Humidity",
+                  body: info.main.humidity,
+                  unit: "%",
                 };
               });
           });
@@ -96,6 +109,8 @@ export default {
           )
           .then((result) => {
             this.days = result.data;
+            console.log(this.days);
+
             let dayList = result.data.list;
             dayList = dayList.map((item) => ({
               min: item.main.temp_min,
@@ -160,6 +175,8 @@ export default {
         date: "Fri 30 Mar",
         location: "Santa Ana",
       },
+      wind: {},
+      humedad: {},
       days: [],
       iconList: {
         "01": require("../assets/img/Clear.png"),
