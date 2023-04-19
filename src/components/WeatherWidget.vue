@@ -1,5 +1,5 @@
 <template>
-  <v-card class="primary" min-height="235">
+  <v-card class="primary main">
     <v-list-item two-line>
       <v-list-item-content>
         <v-list-item-title class="text-h6 text-center">
@@ -8,7 +8,7 @@
       </v-list-item-content>
     </v-list-item>
 
-    <v-card-text style="height: 100px">
+    <v-card-text class="main-img">
       <v-row>
         <v-col cols="12" offset-md="2" md="8">
           <v-img :src="time.img" :alt="time.alt"></v-img>
@@ -40,4 +40,13 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+@media screen and (min-width: 1400px) {
+  .main-img {
+    height: 175px;
+  }
+  .main {
+    min-height: 300px;
+  }
+}
+</style>
