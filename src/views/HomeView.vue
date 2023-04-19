@@ -222,7 +222,7 @@ export default {
 
 @media screen and (max-width: 1366px) {
   .main-icon {
-    margin-top: -15rem; /* para pantallas de menos de 768px de ancho */
+    margin-top: -20rem; /* para pantallas de menos de 768px de ancho */
   }
   .dailycard {
     margin-top: -3.5rem;
