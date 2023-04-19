@@ -205,14 +205,6 @@ export default {
 };
 </script>
 <style scoped>
-.sidebar {
-  background-image: url(@/assets/img/Cloud-background.png);
-  background-size: 35rem;
-  background-position: 45% 15%;
-  filter: grayscale(200%) opacity(0.1) drop-shadow(0 0 0 black);
-  height: 50%;
-}
-
 .main-icon {
   margin-top: -25rem;
 }
@@ -227,11 +219,25 @@ export default {
   .dailycard {
     margin-top: -3.5rem;
   }
+  .sidebar {
+    background-image: url(@/assets/img/Cloud-background.png);
+    background-size: 35rem;
+    background-position: 53% 15%;
+    filter: grayscale(200%) opacity(0.1) drop-shadow(0 0 0 black);
+    height: 50%;
+  }
 }
 
 @media screen and (min-width: 1400px) {
   .dailycard {
     margin-top: 3rem;
+  }
+  .sidebar {
+    background-image: url(@/assets/img/Cloud-background.png);
+    background-size: 50rem;
+    background-position: 50% 15%;
+    filter: grayscale(200%) opacity(0.1) drop-shadow(0 0 0 black);
+    height: 50%;
   }
 }
 </style>

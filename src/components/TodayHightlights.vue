@@ -29,7 +29,7 @@
               </div>
               <v-progress-linear
                 class="mt-1"
-                :value="50"
+                :value="info.body"
                 height="10"
                 rounded
                 color="#FFEC65"
