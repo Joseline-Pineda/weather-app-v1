@@ -88,14 +88,24 @@ export default {
 
                 this.wind = {
                   title: "Wind status",
-                  body: info.wind.speed,
-                  unit: "m/s",
+                  body: (info.wind.speed * 3.6).toFixed(2),
+                  unit: "km/h",
+                  extra: {
+                    title: "Visibility",
+                    body: info.visibility / 1000,
+                    unit: "km",
+                  },
                 };
 
                 this.humedad = {
                   title: "Humidity",
                   body: info.main.humidity,
                   unit: "%",
+                  extra: {
+                    title: "Air Pressure",
+                    body: info.main.pressure,
+                    unit: "mb",
+                  },
                 };
               });
           });
