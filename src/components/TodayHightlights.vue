@@ -13,7 +13,7 @@
         <span class="ml-1 text-h4">{{ info.unit }}</span>
       </div>
       <div>
-        <v-row>
+        <v-row v-if="info.title == 'Humidity'">
           <v-col md="8" offset-md="2">
             <div class="rounded-full h-2.5 bg-grey lighten-3">
               <div
@@ -36,6 +36,12 @@
             </v-progress-linear>
           </v-col>
           <v-text class="d-flex justify-end mt-7 ml-0">%</v-text>
+        </v-row>
+        <v-row v-else class="mt-5">
+          <v-col md="8" offset-md="2">
+            <v-icon class="mr-2">fa-solid fa-location-arrow</v-icon>
+            <v-text>WSW</v-text>
+          </v-col>
         </v-row>
       </div>
     </v-card-text>
