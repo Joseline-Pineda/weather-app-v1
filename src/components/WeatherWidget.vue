@@ -49,4 +49,13 @@ export default {
     min-height: 300px;
   }
 }
+
+@media screen and (max-width: 1366px) {
+  .main-img {
+    height: 100px;
+  }
+  .main {
+    min-height: 135px;
+  }
+}
 </style>
