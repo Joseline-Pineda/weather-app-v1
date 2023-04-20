@@ -8,6 +8,12 @@
       </v-col>
       <v-col class="secondary">
         <v-row>
+          <v-row class="mt-5">
+            <v-col md="10" offset-md="1" class="d-flex justify-end">
+              <v-btn class="mx-2 text-h6 primary" fab> °C </v-btn>
+              <v-btn class="mx-2 text-h6 primary" fab> °F </v-btn>
+            </v-col>
+          </v-row>
           <v-col offset-md="1" md="12">
             <v-row class="mt-10">
               <v-col v-for="day in days" :key="day.id" md="2">
