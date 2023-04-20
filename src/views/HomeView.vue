@@ -21,10 +21,6 @@
               <v-col md="5"> <TodayHightlights :info="wind" /></v-col>
               <v-col md="5"><TodayHightlights :info="humedad" /></v-col>
             </v-row>
-            <v-row>
-              <v-col md="5"><TodayHightlights /></v-col>
-              <v-col md="5"><TodayHightlights /></v-col>
-            </v-row>
           </v-col>
         </v-row>
       </v-col>
