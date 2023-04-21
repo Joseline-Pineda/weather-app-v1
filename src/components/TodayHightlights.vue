@@ -36,12 +36,12 @@
               >
               </v-progress-linear>
             </v-col>
-            <v-text class="d-flex justify-end mt-7 ml-0">%</v-text>
+            <p class="d-flex justify-end mt-7 ml-0">%</p>
           </v-row>
           <v-row v-else class="mt-5">
             <v-col md="8" offset-md="2">
               <v-icon class="mr-2">fa-solid fa-location-arrow</v-icon>
-              <v-text>WSW</v-text>
+              <p>WSW</p>
             </v-col>
           </v-row>
         </div>

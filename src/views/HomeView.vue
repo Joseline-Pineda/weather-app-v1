@@ -187,8 +187,26 @@ export default {
         date: "Fri 30 Mar",
         location: "Santa Ana",
       },
-      wind: {},
-      humedad: {},
+      wind: {
+        title: "Wind status",
+        body: "",
+        unit: "km/h",
+        extra: {
+          title: "Visibility",
+          body: "",
+          unit: "km",
+        },
+      },
+      humedad: {
+        title: "Humidity",
+        body: "",
+        unit: "%",
+        extra: {
+          title: "Air Pressure",
+          body: "",
+          unit: "mb",
+        },
+      },
       days: [],
       iconList: {
         "01": require("../assets/img/Clear.png"),
