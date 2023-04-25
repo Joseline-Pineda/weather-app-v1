@@ -14,13 +14,34 @@ export default {
   async getTodayInfo(lat, lon) {
     try {
       let response = await apiCliente.get(
-        "weather?lat=" +
+        "weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + apiKey
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Hubo un problema al obtener la información del clima.");
+    }
+  },
+
+  async getForescastFiveDays(lat, lon) {
+    try {
+      let response = await apiCliente.get(
+        "forecast?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + apiKey
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Hubo un problema al obtener la información del clima.");
+    }
+  },
+
+  async getLocation(lat, lon) {
+    try {
+      let response = await apiCliente.get(
+        "https://nominatim.openstreetmap.org/reverse?format=json&lat=" +
           lat +
           "&lon=" +
-          lon +
-          "&units=metric&" +
-          "appid=" +
-          apiKey
+          lon
       );
       return response.data;
     } catch (error) {
