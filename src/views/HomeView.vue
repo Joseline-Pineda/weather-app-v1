@@ -38,18 +38,22 @@ import WeatherWidget from "@/components/WeatherWidget.vue";
 import MainImage from "@/components/MainImage.vue";
 import DailyCard from "@/components/DailyCard.vue";
 import TodayHightlights from "@/components/TodayHightlights.vue";
+import ApiClientService from "@/services/ApiClientService";
 import axios from "axios";
 import moment from "moment";
 export default {
   name: "Home",
-  created() {
+  async created() {
     const date = moment();
-    console.log(date);
     const fechaFormatter = date.format("ddd D MMMM");
-    console.log(fechaFormatter);
     let lat = 0;
     let lon = 0;
     if ("geolocation" in navigator) {
+      let response = await ApiClientService.getTodayInfo(
+        13.977671622701715,
+        -89.56479550560387
+      );
+      console.log(response);
       navigator.geolocation.getCurrentPosition((position) => {
         lat = position.coords.latitude;
         lon = position.coords.longitude;
@@ -64,7 +68,6 @@ export default {
           )
           .then((result) => {
             ubicacion = result.data;
-
             axios
               .get(
                 "https://api.openweathermap.org/data/2.5/weather?lat=" +
@@ -75,8 +78,6 @@ export default {
               )
               .then((result) => {
                 let info = result.data;
-                console.log("ff");
-                console.log(info);
                 let id = info.weather[0].icon;
                 id = id.slice(0, id.length - 1);
                 this.image = this.iconList[id];
