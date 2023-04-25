@@ -39,7 +39,6 @@ import MainImage from "@/components/MainImage.vue";
 import DailyCard from "@/components/DailyCard.vue";
 import TodayHightlights from "@/components/TodayHightlights.vue";
 import ApiClientService from "@/services/ApiClientService";
-import axios from "axios";
 import moment from "moment";
 export default {
   name: "Home",
@@ -49,117 +48,76 @@ export default {
     let lat = 0;
     let lon = 0;
     if ("geolocation" in navigator) {
-      let response = await ApiClientService.getTodayInfo(
-        13.977671622701715,
-        -89.56479550560387
-      );
-      console.log(response);
       navigator.geolocation.getCurrentPosition((position) => {
         lat = position.coords.latitude;
         lon = position.coords.longitude;
-        var ubicacion;
-
-        axios
-          .get(
-            "https://nominatim.openstreetmap.org/reverse?format=json&lat=" +
-              lat +
-              "&lon=" +
-              lon
-          )
-          .then((result) => {
-            ubicacion = result.data;
-            axios
-              .get(
-                "https://api.openweathermap.org/data/2.5/weather?lat=" +
-                  lat +
-                  "&lon=" +
-                  lon +
-                  "&appid=6ac7cc5ef159eb0ca2eb7aff5a1d2ee7&units=metric"
-              )
-              .then((result) => {
-                let info = result.data;
-                let id = info.weather[0].icon;
-                id = id.slice(0, id.length - 1);
-                this.image = this.iconList[id];
-
-                this.today = {
-                  temp: Math.trunc(info.main.feels_like),
-                  description: info.weather[0].main,
-                  date: fechaFormatter,
-                  location: ubicacion.address.city,
-                };
-
-                this.wind = {
-                  title: "Wind status",
-                  body: (info.wind.speed * 3.6).toFixed(2),
-                  unit: "km/h",
-                  extra: {
-                    title: "Visibility",
-                    body: info.visibility / 1000,
-                    unit: "km",
-                  },
-                };
-
-                this.humedad = {
-                  title: "Humidity",
-                  body: info.main.humidity,
-                  unit: "%",
-                  extra: {
-                    title: "Air Pressure",
-                    body: info.main.pressure,
-                    unit: "mb",
-                  },
-                };
-              });
-          });
-        axios
-          .get(
-            "https://api.openweathermap.org/data/2.5/forecast?lat=" +
-              lat +
-              "&lon=" +
-              lon +
-              "&appid=6ac7cc5ef159eb0ca2eb7aff5a1d2ee7&units=metric"
-          )
-          .then((result) => {
-            this.days = result.data;
-            console.log(this.days);
-
-            let dayList = result.data.list;
-            dayList = dayList.map((item) => ({
-              min: item.main.temp_min,
-              max: item.main.temp_max,
-              img: this.iconList[
-                item.weather[0].icon.slice(0, item.weather[0].icon.length - 1)
-              ],
-              //todo cambiar nombre de titulo por fecha
-              titulo: item.dt_txt.slice(0, 10),
-            }));
-
-            let fechas = dayList.map((fecha) => fecha.titulo);
-
-            fechas = [...new Set(fechas)];
-            console.log(dayList);
-            console.log(fechas);
-            let climas = [];
-            for (const fecha of fechas) {
-              let filter = dayList.filter((item) => item.titulo == fecha);
-              let climaPromedio = filter.reduce((a, b) => ({
-                titulo: a.titulo,
-                min: a.min + b.min,
-                max: a.max + b.max,
-                img: a.img,
-              }));
-              climaPromedio.titulo = date.add(1, "day").format("ddd D MMMM");
-              climaPromedio.min = Math.trunc(climaPromedio.min / filter.length);
-              climaPromedio.max = Math.trunc(climaPromedio.max / filter.length);
-
-              climas.push(climaPromedio);
-            }
-            console.log(climas);
-            this.days = climas;
-            if (this.days.length > 5) this.days.pop();
-          });
       });
+
+      let ubicacion = await ApiClientService.getLocation(lat, lon);
+      let info = await ApiClientService.getTodayInfo(lat, lon);
+      let id = info.weather[0].icon;
+      id = id.slice(0, id.length - 1);
+      this.image = this.iconList[id];
+      this.today = {
+        temp: Math.trunc(info.main.feels_like),
+        description: info.weather[0].main,
+        date: fechaFormatter,
+        location: ubicacion.address.city,
+      };
+      this.wind = {
+        title: "Wind status",
+        body: (info.wind.speed * 3.6).toFixed(2),
+        unit: "km/h",
+        extra: {
+          title: "Visibility",
+          body: info.visibility / 1000,
+          unit: "km",
+        },
+      };
+      this.humedad = {
+        title: "Humidity",
+        body: info.main.humidity,
+        unit: "%",
+        extra: {
+          title: "Air Pressure",
+          body: info.main.pressure,
+          unit: "mb",
+        },
+      };
+
+      this.days = await ApiClientService.getForescastFiveDays(lat, lon);
+      console.log(this.days);
+      let dayList = this.days.list;
+      dayList = dayList.map((item) => ({
+        min: item.main.temp_min,
+        max: item.main.temp_max,
+        img: this.iconList[
+          item.weather[0].icon.slice(0, item.weather[0].icon.length - 1)
+        ],
+        //todo cambiar nombre de titulo por fecha
+        titulo: item.dt_txt.slice(0, 10),
+      }));
+      let fechas = dayList.map((fecha) => fecha.titulo);
+      fechas = [...new Set(fechas)];
+      console.log(dayList);
+      console.log(fechas);
+      let climas = [];
+      for (const fecha of fechas) {
+        let filter = dayList.filter((item) => item.titulo == fecha);
+        let climaPromedio = filter.reduce((a, b) => ({
+          titulo: a.titulo,
+          min: a.min + b.min,
+          max: a.max + b.max,
+          img: a.img,
+        }));
+        climaPromedio.titulo = date.add(1, "day").format("ddd D MMMM");
+        climaPromedio.min = Math.trunc(climaPromedio.min / filter.length);
+        climaPromedio.max = Math.trunc(climaPromedio.max / filter.length);
+        climas.push(climaPromedio);
+      }
+      console.log(climas);
+      this.days = climas;
+      if (this.days.length > 5) this.days.pop();
     } else {
       /* geolocation IS NOT available */
     }
@@ -208,7 +166,7 @@ export default {
           unit: "mb",
         },
       },
-      days: [],
+      days: {},
       iconList: {
         "01": require("../assets/img/Clear.png"),
         "02": require("../assets/img/LightCloud.png"),
