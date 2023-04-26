@@ -53,8 +53,9 @@ export default {
         lon = position.coords.longitude;
       });
 
-      let ubicacion = await ApiClientService.getLocation(lat, lon);
       let info = await ApiClientService.getTodayInfo(lat, lon);
+      let ubicacion = await ApiClientService.getLocation(lat, lon);
+      console.log(ubicacion);
       let id = info.weather[0].icon;
       id = id.slice(0, id.length - 1);
       this.image = this.iconList[id];
@@ -86,7 +87,7 @@ export default {
       };
 
       this.days = await ApiClientService.getForescastFiveDays(lat, lon);
-      console.log(this.days);
+
       let dayList = this.days.list;
       dayList = dayList.map((item) => ({
         min: item.main.temp_min,
@@ -99,8 +100,6 @@ export default {
       }));
       let fechas = dayList.map((fecha) => fecha.titulo);
       fechas = [...new Set(fechas)];
-      console.log(dayList);
-      console.log(fechas);
       let climas = [];
       for (const fecha of fechas) {
         let filter = dayList.filter((item) => item.titulo == fecha);
@@ -115,7 +114,6 @@ export default {
         climaPromedio.max = Math.trunc(climaPromedio.max / filter.length);
         climas.push(climaPromedio);
       }
-      console.log(climas);
       this.days = climas;
       if (this.days.length > 5) this.days.pop();
     } else {
@@ -141,10 +139,10 @@ export default {
         alt: "Texto alternatvo",
       },
       today: {
-        temp: 18,
-        description: "shower",
-        date: "Fri 30 Mar",
-        location: "Santa Ana",
+        temp: "",
+        description: "",
+        date: "",
+        location: "",
       },
       wind: {
         title: "Wind status",
