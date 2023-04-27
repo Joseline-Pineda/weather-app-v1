@@ -6,7 +6,10 @@
     elevation="0"
   >
     <v-card-text class="text-center">
-      <p class="num">{{ info.temp }} <span class="unit">°C</span></p>
+      <p class="num">
+        {{ fahrenheit ? info.tempF : info.temp }}
+        <span class="unit">{{ fahrenheit ? "°F" : "°C" }}</span>
+      </p>
       <p class="description">{{ info.description }}</p>
       <div class="information">
         <p>
@@ -33,6 +36,9 @@ export default {
   props: {
     info: {
       type: Object,
+    },
+    fahrenheit: {
+      type: Boolean,
     },
   },
 };

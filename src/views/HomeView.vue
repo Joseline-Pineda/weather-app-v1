@@ -4,20 +4,34 @@
       <v-col class="primary" md="3">
         <v-row class="sidebar"> </v-row>
         <v-container class="main-icon"><MainImage :img="image" /> </v-container>
-        <v-row class="dailycard"><DailyCard :info="today" /> </v-row>
+        <v-row class="dailycard"
+          ><DailyCard :info="today" :fahrenheit="fahrenheit" />
+        </v-row>
       </v-col>
       <v-col class="secondary">
         <v-row>
           <v-row class="mt-5">
             <v-col md="10" offset-md="1" class="d-flex justify-end">
-              <v-btn class="mx-2 text-h6 primary" fab> °C </v-btn>
-              <v-btn class="mx-2 text-h6 primary" fab> °F </v-btn>
+              <v-btn
+                class="mx-2 text-h6 primary"
+                fab
+                @click="fahrenheit = false"
+              >
+                °C
+              </v-btn>
+              <v-btn
+                class="mx-2 text-h6 primary"
+                fab
+                @click="fahrenheit = true"
+              >
+                °F
+              </v-btn>
             </v-col>
           </v-row>
           <v-col offset-md="1" md="12">
             <v-row class="mt-10">
               <v-col v-for="day in days" :key="day.id" md="2">
-                <WeatherWidget :time="day" />
+                <WeatherWidget :time="day" :fahrenheit="fahrenheit" />
               </v-col>
             </v-row>
             <v-row>
@@ -59,12 +73,16 @@ export default {
       let id = info.weather[0].icon;
       id = id.slice(0, id.length - 1);
       this.image = this.iconList[id];
+
       this.today = {
         temp: Math.trunc(info.main.feels_like),
+        tempF: (Math.trunc(info.main.feels_like) * 9) / 5 + 32,
+
         description: info.weather[0].main,
         date: fechaFormatter,
         location: ubicacion.address.city,
       };
+      console.log(this.today.tempF);
       this.wind = {
         title: "Wind status",
         body: (info.wind.speed * 3.6).toFixed(2),
@@ -91,7 +109,9 @@ export default {
       let dayList = this.days.list;
       dayList = dayList.map((item) => ({
         min: item.main.temp_min,
+        minF: (item.main.temp_min * 9) / 5 + 32,
         max: item.main.temp_max,
+        maxF: (item.main.temp_max * 9) / 5 + 32,
         img: this.iconList[
           item.weather[0].icon.slice(0, item.weather[0].icon.length - 1)
         ],
@@ -106,12 +126,16 @@ export default {
         let climaPromedio = filter.reduce((a, b) => ({
           titulo: a.titulo,
           min: a.min + b.min,
+          minF: a.minF + b.minF,
           max: a.max + b.max,
+          maxF: a.maxF + b.maxF,
           img: a.img,
         }));
         climaPromedio.titulo = date.add(1, "day").format("ddd D MMMM");
         climaPromedio.min = Math.trunc(climaPromedio.min / filter.length);
+        climaPromedio.minF = Math.trunc(climaPromedio.minF / filter.length);
         climaPromedio.max = Math.trunc(climaPromedio.max / filter.length);
+        climaPromedio.maxF = Math.trunc(climaPromedio.maxF / filter.length);
         climas.push(climaPromedio);
       }
       this.days = climas;
@@ -177,6 +201,7 @@ export default {
         50: require("../assets/img/LightCloud.png"),
       },
       image: "",
+      fahrenheit: false,
     };
   },
 };

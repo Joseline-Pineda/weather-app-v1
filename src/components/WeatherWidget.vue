@@ -18,14 +18,14 @@
     <v-card-actions>
       <v-row d-flex>
         <v-col class="h6 d-flex justify-start" text offset="md-2" md="4">
-          {{ time.max }}°C
+          {{ fahrenheit ? time.minF + "°F" : time.min + "°C" }}
         </v-col>
         <v-col
           class="h6 d-flex justify-end grey--text font-weight-light"
           md="4"
           text
         >
-          {{ time.min }}°C
+          {{ fahrenheit ? time.maxF + "°F" : time.max + "°C" }}
         </v-col>
       </v-row>
     </v-card-actions>
@@ -36,6 +36,7 @@
 export default {
   props: {
     time: Object,
+    fahrenheit: Boolean,
   },
 };
 </script>
