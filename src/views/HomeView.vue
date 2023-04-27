@@ -29,7 +29,7 @@
             </v-col>
           </v-row>
           <v-col offset-md="1" md="12">
-            <v-row class="mt-10">
+            <v-row class="mt-0">
               <v-col v-for="day in days" :key="day.id" md="2">
                 <WeatherWidget :time="day" :fahrenheit="fahrenheit" />
               </v-col>
