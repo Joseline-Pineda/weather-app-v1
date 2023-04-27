@@ -155,13 +155,6 @@ export default {
   },
   data() {
     return {
-      tiempo: {
-        titulo: "Mon, 8 Jun",
-        img: require("../assets/img/LightCloud.png"),
-        max: "16°C",
-        min: "11°C",
-        alt: "Texto alternatvo",
-      },
       today: {
         temp: "",
         description: "",
